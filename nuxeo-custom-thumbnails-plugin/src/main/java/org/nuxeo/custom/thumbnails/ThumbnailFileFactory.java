@@ -17,9 +17,15 @@
 package org.nuxeo.custom.thumbnails;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashMap;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -29,12 +35,16 @@ import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
 import org.nuxeo.ecm.core.api.thumbnail.ThumbnailFactory;
 import org.nuxeo.ecm.platform.thumbnail.factories.ThumbnailDocumentFactory;
 
+import com.google.common.io.Files;
+
 /**
  * 
  *
  * @since 7.2
  */
 public class ThumbnailFileFactory implements ThumbnailFactory {
+
+    private static Log log = LogFactory.getLog(ThumbnailFileFactory.class);
 
     protected static String[] HANDLED_EXTENSIONS = { "as", "css", "html",
             "java", "js", "xml" };
@@ -50,17 +60,17 @@ public class ThumbnailFileFactory implements ThumbnailFactory {
         Blob result = null;
         if (inDoc.hasSchema("file")) {
             Blob b = (Blob) inDoc.getPropertyValue("file:content");
-            if(b != null) {
+            if (b != null) {
                 String ext = getExtensionForBlob(b);
                 result = getThumbnail(ext);
             }
         }
-        
+
         if (result == null) {
             ThumbnailFactory defaultDocFactory = new ThumbnailDocumentFactory();
             result = defaultDocFactory.computeThumbnail(inDoc, inSession);
         }
-        
+
         return result;
     }
 
@@ -110,12 +120,32 @@ public class ThumbnailFileFactory implements ThumbnailFactory {
             synchronized (LOCK) {
                 if (thumbnails == null) {
                     thumbnails = new HashMap<String, FileBlob>();
-                    for (String ext : HANDLED_EXTENSIONS) {
-                        String path = getClass().getResource(
-                                "/img/" + ext + "-100.png").getFile();
-                        File f = new File(path);
 
-                        thumbnails.put(ext, new FileBlob(f));
+                    String fileRelativePath;
+                    FileBlob fb;
+                    InputStream in = null;
+                    for (String ext : HANDLED_EXTENSIONS) {
+                        
+                        fileRelativePath = "/img/" + ext + "-100.png";
+                        in = getClass().getResourceAsStream(fileRelativePath);
+                        try {
+                            fb = new FileBlob(in);
+                            thumbnails.put(ext, fb);
+                        } catch (Exception e) {
+                            log.error("Failed to get image in '"
+                                    + fileRelativePath + "'", e);
+                        } finally {
+                            /*
+                            if(in != null) {
+                                try {
+                                    in.close();
+                                } catch (IOException e) {
+                                    // Ignore
+                                }
+                            }
+                            */
+                        }
+                        
                     }
                 }
             }
