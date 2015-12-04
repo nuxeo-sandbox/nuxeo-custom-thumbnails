@@ -3,7 +3,7 @@
 
 This plug-in displays specific thumbnails for `File` documents, depending on their mime-type or extension. This plug-in handles: `js`, `css`, `xml`, `html`, `java` and `as` (see below about HTML and XML).
 
-![Custom-Thumbnails](https://intranet.nuxeo.com/nuxeo/site/easyshare/ddc0d4a2-b1f4-4dc3-ac83-a7d806b7cc7b/fd555345-aed5-4a09-a82c-42ec6c901080/custom-thumbnails.jpg)
+!["Custom-Thumbnails"](https://raw.github.com/nuxeo-sandbox/nuxeo-custom-thumbnails/nuxeo-sandbox/nuxeo-custom-thumbnails-plugin/src/main/resources/img/custom-thumbnails.jpg)
 
 This is done by contributing a custom `ThumbnailFactory`, as explained [here](http://doc.nuxeo.com/x/sIPZ). This factory is registerded for every `File` document. When nuxeo requires a thumbnail for such document type, the plug-in checks the real type of the file (mime-type and if it's plain text, it looks at the extension), and either changes the thumbnail or uses the default factory.
 

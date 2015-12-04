@@ -16,26 +16,19 @@
  */
 package org.nuxeo.custom.thumbnails;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.HashMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.core.api.Blob;
-import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
 import org.nuxeo.ecm.core.api.thumbnail.ThumbnailFactory;
 import org.nuxeo.ecm.platform.thumbnail.factories.ThumbnailDocumentFactory;
-
-import com.google.common.io.Files;
 
 /**
  * 
@@ -55,7 +48,7 @@ public class ThumbnailFileFactory implements ThumbnailFactory {
 
     @Override
     public Blob getThumbnail(DocumentModel inDoc, CoreSession inSession)
-            throws ClientException {
+            throws NuxeoException {
 
         Blob result = null;
         if (inDoc.hasSchema("file")) {
