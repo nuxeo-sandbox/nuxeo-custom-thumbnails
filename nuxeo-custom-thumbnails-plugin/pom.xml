@@ -5,11 +5,10 @@
   <parent>
     <groupId>nuxeo-custom-thumbnails</groupId>
     <artifactId>nuxeo-custom-thumbnails-parent</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.2-SNAPSHOT</version>
   </parent>
   <groupId>nuxeo-custom-thumbnails</groupId>
   <artifactId>nuxeo-custom-thumbnails-plugin</artifactId>
-  <version>1.1-SNAPSHOT</version>
   <name>nuxeo-custom-thumbnails-plugin</name>
   <description/>
   <dependencies>

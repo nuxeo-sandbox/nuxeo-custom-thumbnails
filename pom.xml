@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.nuxeo</groupId>
     <artifactId>nuxeo-addons-parent</artifactId>
-    <version>7.10-SNAPSHOT</version>
+    <version>8.3</version>
   </parent>
   <groupId>nuxeo-custom-thumbnails</groupId>
   <artifactId>nuxeo-custom-thumbnails-parent</artifactId>
   <name>Parent Project for Nuxeo Custom Thumbnails</name>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <description />
   <modules>
@@ -18,7 +18,7 @@
     <module>nuxeo-custom-thumbnails-mp</module>
   </modules>
   <properties>
-    <nuxeo.custom.thumbnails.version>1.1-SNAPSHOT</nuxeo.custom.thumbnails.version>
+    <nuxeo.custom.thumbnails.version>1.2-SNAPSHOT</nuxeo.custom.thumbnails.version>
   </properties>
   <dependencyManagement>
     <dependencies>
